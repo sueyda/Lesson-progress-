@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="tr" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Programı | Taha Arda Çavildak</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Tailwind Configuration for specific colors/fonts -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar for a sleek look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+        
+        /* Subtle glow animation for the current day */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px 0 rgba(59, 130, 246, 0.2); }
+            50% { box-shadow: 0 0 25px 5px rgba(59, 130, 246, 0.4); }
+        }
+        .current-day-glow {
+            animation: pulse-glow 3s infinite;
+            border-color: #3b82f6 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col font-sans selection:bg-blue-500 selection:text-white">
+
+    <!-- Header Section -->
+    <header class="w-full bg-slate-900 border-b border-slate-800 shadow-lg py-8 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600"></div>
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-5 text-center md:text-left">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-blue-500/20 flex-shrink-0">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Taha Arda Çavildak</h1>
+                    <p class="text-blue-400 font-medium text-sm sm:text-base mt-1">Arka-Yüz Yazılım Geliştirme (Backend)</p>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                        <i class="fa-solid fa-building-columns mr-1"></i> Kırıkhan M.Y.O.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl px-5 py-3 flex items-center gap-3 shadow-inner">
+                <i class="fa-regular fa-calendar-days text-indigo-400 text-xl"></i>
+                <div class="text-left">
+                    <p class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Dönem</p>
+                    <p class="text-sm sm:text-base font-bold text-slate-200">2026-2027 Güz</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Schedule Grid -->
+    <main class="flex-grow w-full max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- Responsive Grid: 1 col on mobile, 2 on tablet, 3 on small desktop, 5 on large screens -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 h-full" id="schedule-grid">
+            
+            <!-- PAZARTESİ -->
+            <div class="day-card flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1" data-day="1">
+                <div class="bg-slate-850 border-b border-slate-800 py-4 px-5 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-slate-100 uppercase tracking-widest">Pazartesi</h2>
+                    <span class="w-2 h-2 rounded-full bg-slate-600 indicator-dot"></span>
+                </div>
+                <div class="p-4 flex flex-col gap-4 h-full">
+                    
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-rose-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 08:15 - 12:00
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-rose-300 transition-colors">Web Güvenliği</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör. Fatih Akman Çakmak</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>KMYO Amfi-3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Break indicator (Optional aesthetic touch) -->
+                    <div class="flex justify-center items-center py-1">
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                    </div>
+
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-blue-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 13:15 - 16:55
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">Uygulama Programı Arayüzü</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör. Sabit Babaoğlu</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span class="font-medium text-slate-200">KMYO LAB-1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SALI -->
+            <div class="day-card flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1" data-day="2">
+                <div class="bg-slate-850 border-b border-slate-800 py-4 px-5 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-slate-100 uppercase tracking-widest">Salı</h2>
+                    <span class="w-2 h-2 rounded-full bg-slate-600 indicator-dot"></span>
+                </div>
+                <div class="p-4 flex flex-col gap-4 h-full">
+                    
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-emerald-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 08:15 - 10:00
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">Mesleki Yabancı Dil</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör.Dr. Tarık Atalar</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>KMYO Amfi-2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-purple-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 10:15 - 12:00
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">Gömülü Sistemler</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör. Sabit Babaoğlu</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span class="font-medium text-slate-200">KMYO LAB-1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÇARŞAMBA -->
+            <div class="day-card flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1" data-day="3">
+                <div class="bg-slate-850 border-b border-slate-800 py-4 px-5 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-slate-100 uppercase tracking-widest">Çarşamba</h2>
+                    <span class="w-2 h-2 rounded-full bg-slate-600 indicator-dot"></span>
+                </div>
+                <div class="p-4 flex flex-col gap-4 h-full">
+                    
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-indigo-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 08:15 - 12:00
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors leading-snug">Sanallaştırma Platformları ve Yönetimi</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör. Sabit Babaoğlu</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span class="font-medium text-slate-200">KMYO LAB-1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center items-center py-1">
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                    </div>
+
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-amber-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 13:15 - 16:55
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-amber-300 transition-colors">Yapay Zekâ Uygulamaları</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör.Dr. Bilal İşçimen</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span class="font-medium text-slate-200">KMYO LAB-3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- PERŞEMBE -->
+            <div class="day-card flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1" data-day="4">
+                <div class="bg-slate-850 border-b border-slate-800 py-4 px-5 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-slate-100 uppercase tracking-widest">Perşembe</h2>
+                    <span class="w-2 h-2 rounded-full bg-slate-600 indicator-dot"></span>
+                </div>
+                <div class="p-4 flex flex-col gap-4 h-full">
+                    
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-cyan-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 09:15 - 12:00
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">CPU ile Paralel Programlama</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör. Sabit Babaoğlu</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span class="font-medium text-slate-200">KMYO LAB-1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center items-center py-1">
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                        <div class="w-1 h-1 rounded-full bg-slate-700 mx-1"></div>
+                    </div>
+
+                    <!-- Class Block -->
+                    <div class="relative bg-slate-800 rounded-xl p-4 border-l-4 border-orange-500 shadow-sm transition-colors hover:bg-slate-750 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-orange-400 bg-orange-500/10 px-2.5 py-1 rounded-md">
+                                <i class="fa-regular fa-clock"></i> 13:15 - 16:00
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">Matematik</h3>
+                        <div class="flex flex-col gap-2 text-sm text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-user-tie text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>Öğr.Gör. Nisa Korkmaz</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-slate-500 mt-1 w-4 text-center"></i>
+                                <span>KMYO Amfi-2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CUMA (FREE DAY) -->
+            <div class="day-card flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1" data-day="5">
+                <div class="bg-slate-850 border-b border-slate-800 py-4 px-5 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-slate-100 uppercase tracking-widest">Cuma</h2>
+                    <span class="w-2 h-2 rounded-full bg-slate-600 indicator-dot"></span>
+                </div>
+                <!-- Free day specialized styling -->
+                <div class="p-6 flex flex-col items-center justify-center h-full text-center min-h-[300px] bg-gradient-to-b from-slate-900 to-slate-850">
+                    <div class="w-20 h-20 bg-teal-500/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-mug-hot text-4xl text-teal-400 drop-shadow-md"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-200 mb-2">Boş Gün</h3>
+                    <p class="text-slate-400 text-sm">Bugün ders yok. Projelerini kodlamak veya dinlenmek için harika bir gün!</p>
+                    <div class="mt-6 px-4 py-2 bg-slate-800 rounded-full border border-slate-700 inline-flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-slate-400"></i>
+                        <span class="text-xs text-slate-300 font-medium">Hafta sonu modu yükleniyor...</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="mt-auto py-6 border-t border-slate-800/50 text-center">
+        <p class="text-slate-500 text-sm">
+            Tasarım: Modern Backend Developer Teması <i class="fa-solid fa-laptop-code ml-1 text-slate-400"></i>
+        </p>
+    </footer>
+
+    <!-- JavaScript to automatically highlight the current day -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get current day of week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+            const currentDay = new Date().getDay();
+            
+            // Loop through day cards
+            const dayCards = document.querySelectorAll('.day-card');
+            
+            dayCards.forEach(card => {
+                const cardDay = parseInt(card.getAttribute('data-day'));
+                
+                // If the card matches today's day (1-5)
+                if (cardDay === currentDay) {
+                    // Add highlight classes
+                    card.classList.add('current-day-glow');
+                    
+                    // Highlight the little dot indicator
+                    const dot = card.querySelector('.indicator-dot');
+                    if(dot) {
+                        dot.classList.remove('bg-slate-600');
+                        dot.classList.add('bg-blue-500', 'shadow-[0_0_8px_2px_rgba(59,130,246,0.5)]');
+                    }
+                    
+                    // Highlight the header text a bit
+                    const title = card.querySelector('h2');
+                    if(title) {
+                        title.classList.remove('text-slate-100');
+                        title.classList.add('text-blue-400');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
